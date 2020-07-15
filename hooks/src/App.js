@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { useForm } from './useForm'
 
 const App = () => {
   // React Hook "React.useState" is called conditionally. 
@@ -17,8 +18,10 @@ const App = () => {
       count1: 10, count2: 20
     })
 
-  const [email, setemail] = useState("");
-  const [pass, setpass] = useState("");
+  const [formValue, setFormValue] = useForm({
+    email: "",
+    password: ""
+  });
 
   //you split itup into two
   return (
@@ -33,8 +36,9 @@ const App = () => {
       } > Plus</button>
       <div>count 1 : {value.count1}</div>
       <div>count 2: {value.count2}</div>
-      <input name="email" value={email} onChange={(e) => setemail(e.target.value)} />
-      <input name="password" type="password" value={pass} onChange={(e) => setpass(e.target.value)} />
+
+      <input name="email" value={formValue.email} onChange={setFormValue} />
+      <input name="password" type="password" value={formValue.password} onChange={setFormValue} />
 
     </div >
   );
