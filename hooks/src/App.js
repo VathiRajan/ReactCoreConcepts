@@ -12,21 +12,30 @@ const App = () => {
   //=> // setValue :       <button onClick={() => setValue(a => a + 1)}>Plus</button>
   //=> // setValue :       <button onClick={() => setValue(value + 1)}>Plus</button>
 
-  const [{ value, value2 }, setValue] = useState(
-    { count1: 10, count2: 20 })
+  const [value, setValue] = useState(
+    {
+      count1: 10, count2: 20
+    })
 
+  const [email, setemail] = useState("");
+  const [pass, setpass] = useState("");
 
+  //you split itup into two
   return (
     <div className="App">
       <button onClick={() =>
-        setValue(a => ({
-          count1: a.count1 + 1,...a
-
-
-        }))
+        setValue(a => (
+          {
+            count1: a.count1 + 1,
+            count2: a.count2 + 20
+          })
+        )
       } > Plus</button>
-      <div>count 1 : {value}</div>
-      <div>count 2: {value2}</div>
+      <div>count 1 : {value.count1}</div>
+      <div>count 2: {value.count2}</div>
+      <input name="email" value={email} onChange={(e) => setemail(e.target.value)} />
+      <input name="password" type="password" value={pass} onChange={(e) => setpass(e.target.value)} />
+
     </div >
   );
 }
