@@ -1,47 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { useForm } from './useForm'
 
 const App = () => {
-  // React Hook "React.useState" is called conditionally. 
-  //React Hooks must be called in the exact same order in every component render  react - hooks / rules - of - hooks
-  /*if (true) {
-    React.useState();
-  }*/
 
-  //1 You can also pass function to 
-  //=> // setValue :       <button onClick={() => setValue(a => a + 1)}>Plus</button>
-  //=> // setValue :       <button onClick={() => setValue(value + 1)}>Plus</button>
+    //useEffect
+    const [resourceType, setResourceType] = useState("post")
+    console.log("render")
+    const [item, setitem] = useState([])
 
-  const [value, setValue] = useState(
-    {
-      count1: 10, count2: 20
-    })
+    useEffect(
+        () => {
+            fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+                .then(response => response.json())
+                .then(json => setitem(json));
+        }, [resourceType]
+    );
+    //useEffect
+    return (
+        <div>
+            <Jumbotron>
+                <h1 className="display-3">American Insurance</h1>
+                <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+                <hr className="my-2" />
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <p className="lead">
+                    <Button color="primary">Learn More</Button>
+                </p>
+            </Jumbotron>
 
-  const [formValue, setFormValue] = useForm({
-    email: "",
-    password: ""
-  });
 
-  //you split itup into two
-  return (
-    <div className="App">
-      <button onClick={() =>
-        setValue(a => (
-          {
-            count1: a.count1 + 1,
-            count2: a.count2 + 20
-          })
-        )
-      } > Plus</button>
-      <div>count 1 : {value.count1}</div>
-      <div>count 2: {value.count2}</div>
 
-      <input name="email" value={formValue.email} onChange={setFormValue} />
-      <input name="password" type="password" value={formValue.password} onChange={setFormValue} />
+            <div>
+                <button onClick={() => setResourceType("posts")}> Posts</button>
+                <button onClick={() => setResourceType("users")}> users</button>
+                <button onClick={() => setResourceType("comments")}> comments</button>
+                <h1>{resourceType}</h1>
 
-    </div >
-  );
+            </div>
+
+        </div>
+
+    );
+
 }
 
 export default App;
